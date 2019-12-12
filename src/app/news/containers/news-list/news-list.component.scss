@@ -1,0 +1,60 @@
+.articles-wrp {
+  padding: 0 2rem;
+  width: 100%;
+  .filter-row {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    .filter-group {
+      width: 20rem;
+      margin-right: 2rem;
+    }
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      .title {
+        margin-bottom: .5rem;
+        font-size: 16px;
+      }
+      input {
+        width: 20rem;
+        height: 52px;
+        margin-top: .5rem;
+        border: 1px;
+        border-radius: 5px;
+        border-color: #e0e0e0;
+        border-top-style: outset;
+        border-left-style: outset;
+        border-bottom-style: inset;
+        border-right-style: inset;
+      }
+    }
+  }
+  .article-list {
+    width: 100%;
+    border-collapse: collapse;
+    .header {
+      background-color: #dedfe0;
+      white-space: nowrap;
+      height: 2rem;
+    }
+    .article-image {
+      max-height: 5rem;
+      max-width: 10rem;
+      object-fit: contain;
+    }
+    tr {
+      border-bottom: 1px solid #e0e0e0;
+    }
+    td {
+      padding-left: 1rem;
+      height: 5rem;
+    }
+    .column-sm {
+      width: 10rem;
+    }
+    .column-md {
+      width: 15rem;
+    }
+  }
+}

@@ -1,0 +1,42 @@
+<div class="articles-wrp">
+    <form [formGroup]="filterForm" novalidate>
+        <div class="filter-row">
+            <div class="filter-group input-group">
+                <div class="title">Search</div>
+                <input formControlName="search">
+            </div>
+            <div class="filter-group">
+                <label>Country</label>
+                <ng-select appearance="outline" #countrySelect [clearable]="false" [(ngModel)]="queryParams.country"  formControlName="country">
+                    <ng-option *ngFor="let key of enumToKeys(eCountries)" [value]="key">{{eCountries[key]}}</ng-option>
+                </ng-select>
+            </div>
+            <div class="filter-group">
+                <label for="category">Category</label>
+                <ng-select appearance="outline" #categorySelect labelForId="category" [searchable]="false" formControlName="category">
+                    <ng-option *ngFor="let key of enumToKeys(eCategories)"[value]="key">{{eCategories[key]}}</ng-option>
+                </ng-select>
+            </div>
+        </div>
+    </form>
+    <table class="article-list">
+        <tr class="header">
+            <th class="column-sm"></th>
+            <th class="column-md">Title</th>
+            <th class="column-md">Author</th>
+            <th >Description</th>
+            <th class="column-sm">Published at</th>
+        </tr>
+        <tr *ngFor="let article of newsArticles | async; index as i; trackBy: trackByFn">
+            <td class="column-sm">
+                <img class="article-image" [src]="article.urlToImage" />
+            </td>
+            <td class="column-md">{{article.title}}</td>
+            <td class="column-md">{{article.author}}</td>
+            <td>{{article.description}}</td>
+            <td class="column-sm">{{article.publishedAt | date}}</td>
+        </tr>
+    </table>
+
+    <pagination [totalItems]="totalArticles" [itemsPerPage]="itemsPerPage" (pageChanged)="pageChanged($event)"></pagination>
+</div>
