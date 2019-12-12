@@ -27,7 +27,7 @@
             <th >Description</th>
             <th class="column-sm">Published at</th>
         </tr>
-        <tr *ngFor="let article of newsArticles | async; index as i; trackBy: trackByFn">
+        <tr *ngFor="let article of newsArticles; index as i; trackBy: trackByFn">
             <td class="column-sm">
                 <img class="article-image" [src]="article.urlToImage" />
             </td>

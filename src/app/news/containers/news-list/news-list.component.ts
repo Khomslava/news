@@ -18,7 +18,7 @@ import { ECountries } from './../../../shared/consts/countries';
 })
 export class NewsListComponent implements OnInit, OnDestroy {
 
-  newsArticles: Observable<any>;
+  newsArticles: INewsArticles[];
   itemsPerPage = 5;
   totalArticles = 0;
   eCategories = ECategories;
@@ -40,6 +40,7 @@ export class NewsListComponent implements OnInit, OnDestroy {
 
   constructor(
     private newsService: NewsService,
+    private changeDetectorRef: ChangeDetectorRef,
     private fb: FormBuilder) { }
 
   ngOnInit() {
@@ -65,18 +66,22 @@ export class NewsListComponent implements OnInit, OnDestroy {
   }
 
   private getNews() {
-    this.newsArticles = this.newsService.getNews(this.queryParams)
+    this.newsService.getNews(this.queryParams)
       .pipe(
-      take(1),
-      tap((news: INews) => this.totalArticles = news.totalResults),
-      map((news: INews) => {
-        if (news.articles && news.articles.length) {
-          return news.articles;
-        }
-        return of([]);
-      }),
-      catchError(() => of([]))
-      );
+        take(1),
+        tap((news: INews) => this.totalArticles = news.totalResults),
+        map((news: INews) => {
+          if (news.articles && news.articles.length) {
+            return news.articles;
+          }
+          return of([]);
+        }),
+        catchError(() => of([]))
+      )
+    .subscribe((newsArticles: INewsArticles[]) => {
+      this.newsArticles = newsArticles;
+      this.changeDetectorRef.markForCheck();
+    });
   }
 
   private formValueChanges() {
